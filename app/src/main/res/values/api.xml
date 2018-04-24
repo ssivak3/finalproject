@@ -4,9 +4,9 @@
         YOUR_GOOGLE_MAPS_API_KEY
     </string>
     <string name="foursquare_client_id" templateMergeStrategy="preserve" translatable="false">
-        YOUR_FOURSQUARE_CLIENT_ID
+        4PQSM3203ZN13XY2GJCTH2ZBPU43KZGJXNJ4YOLDJ4OX4GDM
     </string>
     <string name="foursquare_client_secret" templateMergeStrategy="preserve" translatable="false">
-        YOUR_FOURSQUARE_CLIENT_SECRET
+        VQP3TG3GKJPBHWYSASZJ1PCAZJFRBPGGW1VPEUXV0FJ2YYIX
     </string>
 </resources>
