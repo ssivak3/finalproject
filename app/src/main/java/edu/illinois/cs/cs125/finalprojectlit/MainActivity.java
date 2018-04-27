@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    /** Called when the user taps the Send button */
+    /** Called when the user taps the getlit button */
     public void sendMessage(View view) {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         EditText editText = (EditText) findViewById(R.id.editText);
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "https://api.foursquare.com/v2/venues/explore",
+                    "https://api.foursquare.com/v2/venues/explore?near=NYC&oauth_token=XYJVATATPRASIQPNCCSDKSEHXHBJLFVL4J43RRUR32P55S5J&v=20180424",
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
