@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.illinois.cs.cs125.finalprojectlit">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="finalprojectlit"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -15,7 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!--<activity android:name=".DisplayMessageActivity"-->
+            <!--android:label="@string/app_name">-->
+        <!--</activity>-->
         <activity android:name=".DisplayMessageActivity"
             android:parentActivityName=".MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -24,6 +29,5 @@
                 android:value=".MainActivity" />
         </activity>
     </application>
-
 
 </manifest>
