@@ -46,14 +46,14 @@ public final class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Attach the handler to our UI button
-        final Button startAPICall = findViewById(R.id.startAPICall);
-        startAPICall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Log.d(TAG, "Start API button clicked");
-                startAPICall();
-            }
-        });
+//        final Button startAPICall = findViewById(R.id.startAPICall);
+//        startAPICall.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View v) {
+//                Log.d(TAG, "Start API button clicked");
+//                startAPICall();
+//            }
+//        });
 
         // Make sure that our progress bar isn't spinning and style it a bit
         ProgressBar progressBar = findViewById(R.id.progressBar);
@@ -63,7 +63,7 @@ public final class MainActivity extends AppCompatActivity {
     /**
      * Make an API call.
      */
-    void startAPICall() {
+    void startAPICall(final View v) {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
