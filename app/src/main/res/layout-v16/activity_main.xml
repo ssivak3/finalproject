@@ -26,22 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="startAPICall"
-            android:text="START API Call" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="sendMessage"
-            android:text="GET LIT !!!" />
+            android:text="click to get top ten places" />
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="textPersonName" />
 
         <ScrollView
             android:layout_width="match_parent"

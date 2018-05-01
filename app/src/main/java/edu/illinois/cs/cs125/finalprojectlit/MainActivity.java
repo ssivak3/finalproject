@@ -17,19 +17,24 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONObject;
-
+import org.json.*;
+import com.google.gson.*;
 /**
  * Main screen for our API testing app.
  */
 public final class MainActivity extends AppCompatActivity {
-    /** Default logging tag for messages from the main activity. */
+    /**
+     * Default logging tag for messages from the main activity.
+     */
     private static final String TAG = "finalprojectlit:Main";
 
-    /** Request queue for our network requests. */
+    /**
+     * Request queue for our network requests.
+     */
     private static RequestQueue requestQueue;
 
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
     /**
      * Run when our activity comes into view.
      *
@@ -58,6 +63,7 @@ public final class MainActivity extends AppCompatActivity {
         // Make sure that our progress bar isn't spinning and style it a bit
         ProgressBar progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+
     }
 
     /**
@@ -65,16 +71,43 @@ public final class MainActivity extends AppCompatActivity {
      */
     void startAPICall(final View v) {
         try {
+            //retrieves user input
+            EditText editText = (EditText) findViewById(R.id.editText);
+            String place = editText.getText().toString();
+            //final int limit = 10;
+            //calls API
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "https://api.foursquare.com/v2/venues/search?ll=40.7,-74&client_id=4PQSM3203ZN13XY2GJCTH2ZBPU43KZGJXNJ4YOLDJ4OX4GDM&client_secret=VQP3TG3GKJPBHWYSASZJ1PCAZJFRBPGGW1VPEUXV0FJ2YYIX&v=20180427",
+                    "https://api.foursquare.com/v2/venues/explore?near="+place+"&limit=10&client_id=4PQSM3203ZN13XY2GJCTH2ZBPU43KZGJXNJ4YOLDJ4OX4GDM&client_secret=VQP3TG3GKJPBHWYSASZJ1PCAZJFRBPGGW1VPEUXV0FJ2YYIX&v=20180427",
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
                             final TextView find = findViewById(R.id.jsonResult);
-                            find.setText(response.toString());
-                            Log.d(TAG, response.toString());
+                            try {
+                                String results = "";
+                                String responseString = response.toString();
+                                JsonParser parser = new JsonParser();
+                                JsonObject parsedJson = parser.parse(responseString).getAsJsonObject();
+                                JsonObject jsonresponse = parsedJson.getAsJsonObject("response").getAsJsonObject();
+                                JsonObject groups = jsonresponse.getAsJsonArray("groups").get(0).getAsJsonObject();
+
+                                for (int i = 0; i < 10; i++) {
+
+                                    JsonObject items = groups.getAsJsonArray("items").get(i).getAsJsonObject();
+                                    JsonObject venue = items.getAsJsonObject("venue").getAsJsonObject();
+                                    JsonObject location = venue.getAsJsonObject("location").getAsJsonObject();
+                                    String address = location.get("address").getAsString();
+                                    String name = venue.get("name").getAsString();
+
+                                    results = results + "\n"+ name + ": " + address;
+                                }
+                                find.setText(results);
+                                Log.d(TAG, results);
+                            } catch (Exception e) {
+                                find.setText("internal error");
+                                Log.d(TAG, "internal error");
+                            }
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -88,8 +121,34 @@ public final class MainActivity extends AppCompatActivity {
         }
 
     }
+}
+
+
+
+        /**
+         * Run when our activity comes into view.
+         *
+         * @param savedInstanceState state that was saved by the activity last time it was paused
+         */
+       /** @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_display_message);
+
+            // Get the Intent that started this activity and extract the string
+            Intent intent = getIntent();
+            String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+            // Capture the layout's TextView and set the string as its text
+            TextView textView = findViewById(R.id.textView);
+            textView.setText(message);
+//        startAPICall();
+        }
+    }
+
+
     /** Called when the user taps the getlit button */
-    public void sendMessage(View view) {
+   /** public void sendMessage(View view) {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         EditText editText = (EditText) findViewById(R.id.editText);
         String message = editText.getText().toString();
@@ -97,4 +156,4 @@ public final class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-}
+} */
